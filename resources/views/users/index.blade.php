@@ -22,7 +22,7 @@
             
             @forelse($users as $key => $user)
             <tr>
-                <td>{{ $key + 1 }}</td>
+                <td>{{ $user->id }}</td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->lastname }}</td>
                 <td>{{ $user->email }}</td>
@@ -86,10 +86,56 @@
             </div>
             @empty
             <tr>
-                <td colspan="8" class="text-center">Nema dostupnih korisnika.</td>
+                <td colspan="8" class="text-center">No users.</td>
             </tr>
             @endforelse
         </tbody>
     </table>
+    @if ($users->hasPages())
+        <nav>
+            <ul class="pagination justify-content-center">
+                {{-- Prethodna stranica --}}
+                @if ($users->onFirstPage())
+                    <li class="page-item disabled" aria-disabled="true">
+                        <span class="page-link">
+                            <i class="bi bi-chevron-left"></i>
+                        </span>
+                    </li>
+                @else
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $users->previousPageUrl() }}" rel="prev">
+                            <i class="bi bi-chevron-left"></i>
+                        </a>
+                    </li>
+                @endif
+                {{-- Brojevi stranica --}}
+                @foreach ($users->links()->elements[0] as $page => $url)
+                    @if ($page == $users->currentPage())
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link">{{ $page }}</span>
+                        </li>
+                    @else
+                        <li class="page-item">
+                            <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                        </li>
+                    @endif
+                @endforeach
+                {{-- Sljedeća stranica --}}
+                @if ($users->hasMorePages())
+                    <li class="page-item">
+                        <a class="page-link" href="{{ $users->nextPageUrl() }}" rel="next">
+                            <i class="bi bi-chevron-right"></i>
+                        </a>
+                    </li>
+                @else
+                    <li class="page-item disabled" aria-disabled="true">
+                        <span class="page-link">
+                            <i class="bi bi-chevron-right"></i>
+                        </span>
+                    </li>
+                @endif
+            </ul>
+        </nav>
+    @endif
 </div>
 @endsection

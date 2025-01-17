@@ -23,7 +23,7 @@ class UserController extends Controller
         ->orWhere('email', 'LIKE', "%{$search}%")
         ->paginate(10); // Paginate results
 
-    return view('users.index', compact('users', 'role'));
+    return view('users.index', compact('users'));
 }
 
     /**
@@ -82,7 +82,7 @@ class UserController extends Controller
         $data = request()->validate([
             'name' => 'required|string|max:50',
             'lastname' => 'required|string|max:50',
-            'email' => 'required|string|max:255|unique:users,email' .$id,
+            'email' => 'required|email|max:255|unique:users,email,' . $id,
             'role_id' => 'required|integer|exists:roles,id' 
         ]);
         

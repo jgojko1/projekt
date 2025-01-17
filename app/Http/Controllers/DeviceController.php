@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Device;
+use App\Models\Services;
 
 class DeviceController extends Controller
 {
@@ -27,9 +28,10 @@ class DeviceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
-    }
+{
+    $devices = Device::all(); // Get all devices
+    return view('services.create', compact('devices'));
+}
 
     /**
      * Store a newly created resource in storage.

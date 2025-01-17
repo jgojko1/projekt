@@ -31,6 +31,7 @@ Route::group(['middleware' => Authenticate::class], function () {
 
 // Service Routes
     Route::resource('services', ServiceController::class);
+    Route::post('/services', [ServiceController::class, 'store'])->name('services.store');
 
 // Role Routes
     Route::resource('roles', RoleController::class);

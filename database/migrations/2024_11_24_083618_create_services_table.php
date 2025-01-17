@@ -18,8 +18,10 @@ return new class extends Migration
             $table->string('service_name', 150);
             $table->string('description', 255);
             $table->string('status', 30);
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->timestamps();
-            $table->foreignId('service_id')->constrained('services')->onDelete('cascade');
+            $table->foreignId('device_id')->constrained('devices')->onDelete('cascade');
         });
     }
 
