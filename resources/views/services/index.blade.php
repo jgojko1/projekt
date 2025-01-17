@@ -3,7 +3,9 @@
 @section('content')
 <div class="container mt-4">
     <h2 class="text-center">List of services</h2>
+    @if (Auth::user()->role_id == 1)
     <a href="{{ route('services.create') }}" class="btn btn-primary">Add service</a>
+    @endif
     <table class="table table-striped table-bordered table-hover mt-3">
         <thead class="table-dark">
             <tr>
